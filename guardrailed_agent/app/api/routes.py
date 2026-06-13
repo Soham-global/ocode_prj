@@ -1,12 +1,3 @@
-"""
-API routes for the Guardrailed AI Agent.
-
-Endpoints:
-- POST /agent/query  -> run a query through the guardrailed LangGraph agent
-- GET  /agent/scope  -> return the enforced scope
-- GET  /health       -> health check
-"""
-
 from fastapi import APIRouter
 
 from app.schemas import (

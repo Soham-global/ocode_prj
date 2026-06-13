@@ -1,10 +1,3 @@
-"""
-FastAPI application entrypoint for the Guardrailed AI Agent.
-
-Ensures all responses (including errors/validation failures) are
-returned as JSON, per the assignment's output rules.
-"""
-
 from fastapi import FastAPI, Request
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse

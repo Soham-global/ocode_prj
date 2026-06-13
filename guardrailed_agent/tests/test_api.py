@@ -1,19 +1,7 @@
-"""
-Tests for the Guardrailed AI Agent API.
-
-Demonstrates:
-1. In-scope queries are accepted (status: success).
-2. Out-of-scope queries are rejected (status: rejected).
-3. Ambiguous/empty queries are rejected (status: rejected).
-
-Run with: uv run pytest
-"""
-
 import os
 import pytest
 from fastapi.testclient import TestClient
 
-# Use mock provider for tests so no API key/network call is needed
 os.environ["LLM_PROVIDER"] = "mock"
 
 from app.main import app

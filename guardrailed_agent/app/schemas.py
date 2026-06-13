@@ -1,25 +1,11 @@
-"""
-Pydantic schemas defining the request/response contracts for the
-Guardrailed AI Agent API.
-
-All API responses are JSON-only, matching the formats specified in the
-assignment.
-"""
-
 from typing import Literal, Optional
 from pydantic import BaseModel, Field
 
 
-# -------------------------------------------------------------------
-# Request models
-# -------------------------------------------------------------------
 class QueryRequest(BaseModel):
     query: str = Field(..., description="The user's natural language query")
 
 
-# -------------------------------------------------------------------
-# Response models
-# -------------------------------------------------------------------
 class AnswerPayload(BaseModel):
     answer: str
 
