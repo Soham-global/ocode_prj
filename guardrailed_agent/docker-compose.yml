@@ -1,0 +1,13 @@
+services:
+  agent:
+    build: .
+    container_name: guardrailed_agent
+    ports:
+      - "8000:8000"
+    environment:
+      - LLM_PROVIDER=${LLM_PROVIDER:-groq}
+      - GROQ_MODEL=${GROQ_MODEL:-llama-3.3-70b-versatile}
+      - GROQ_API_KEY=${GROQ_API_KEY}
+    env_file:
+      - .env
+    restart: unless-stopped
