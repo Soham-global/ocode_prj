@@ -26,14 +26,8 @@ SYSTEM_PROMPT = (
 def guardrail_node(state: AgentState) -> AgentState:
     query = state.get("query", "")
     decision, reason = check_scope(query)
-
-    if decision == ScopeDecision.IN_SCOPE:
-        state["is_in_scope"] = True
-        state["rejection_reason"] = None
-    else:
-        state["is_in_scope"] = False
-        state["rejection_reason"] = reason
-
+    state["is_in_scope"] = decision == ScopeDecision.IN_SCOPE
+    state["rejection_reason"] = None if state["is_in_scope"] else reason
     return state
 
 

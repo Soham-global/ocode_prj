@@ -28,8 +28,3 @@ class ScopeResponse(BaseModel):
 class HealthResponse(BaseModel):
     status: Literal["ok"] = "ok"
     service: str = "guardrailed-agent"
-
-
-class ErrorResponse(BaseModel):
-    status: Literal["error"] = "error"
-    reason: str

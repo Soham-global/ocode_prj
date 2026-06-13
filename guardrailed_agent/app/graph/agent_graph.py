@@ -4,34 +4,17 @@ from app.graph.nodes import AgentState, guardrail_node, agent_node
 
 
 def _route_after_guardrail(state: AgentState) -> str:
-    if state.get("is_in_scope"):
-        return "agent"
-    return "end"
+    return "agent" if state.get("is_in_scope") else "end"
 
 
-def build_agent_graph():
-    graph = StateGraph(AgentState)
+_graph = StateGraph(AgentState)
+_graph.add_node("guardrail", guardrail_node)
+_graph.add_node("agent", agent_node)
+_graph.set_entry_point("guardrail")
+_graph.add_conditional_edges("guardrail", _route_after_guardrail, {"agent": "agent", "end": END})
+_graph.add_edge("agent", END)
 
-    graph.add_node("guardrail", guardrail_node)
-    graph.add_node("agent", agent_node)
-
-    graph.set_entry_point("guardrail")
-
-    graph.add_conditional_edges(
-        "guardrail",
-        _route_after_guardrail,
-        {
-            "agent": "agent",
-            "end": END,
-        },
-    )
-
-    graph.add_edge("agent", END)
-
-    return graph.compile()
-
-
-compiled_agent_graph = build_agent_graph()
+compiled_agent_graph = _graph.compile()
 
 
 def run_agent(query: str) -> AgentState:
@@ -41,5 +24,4 @@ def run_agent(query: str) -> AgentState:
         "rejection_reason": None,
         "answer": None,
     }
-    final_state = compiled_agent_graph.invoke(initial_state)
-    return final_state
+    return compiled_agent_graph.invoke(initial_state)
