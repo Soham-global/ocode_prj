@@ -23,7 +23,7 @@ def agent_query(request: QueryRequest):
             response=AnswerPayload(answer=final_state["answer"])
         )
 
-    reason = final_state.get("rejection_reason") or "Request is outside the agent's allowed scope"
+    reason = final_state.get("rejection_reason") or "Topic not allowed by agent guardrails"
     return RejectedResponse(reason=reason)
 
 
